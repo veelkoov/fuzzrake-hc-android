@@ -46,7 +46,13 @@ public class HealthCheckStatus {
         this.message = message;
 
         try {
-            this.isOK = jsonObject != null && "OK".equals(jsonObject.getString("status"));
+            this.isOK = jsonObject != null
+                    && "OK".equals(jsonObject.getString("status"))
+                    && "OK".equals(jsonObject.getString("cstStatus"))
+                    && "OK".equals(jsonObject.getString("load"))
+                    && "OK".equals(jsonObject.getString("memory"))
+                    && "OK".equals(jsonObject.getString("disk"))
+            ;
         } catch (JSONException e) {
             this.isOK = false;
         }

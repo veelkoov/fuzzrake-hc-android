@@ -12,7 +12,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONObject;
 
 final class HealthCheckThread extends Thread implements Response.Listener<JSONObject>, Response.ErrorListener {
-    private static final String URL = "http://192.168.0.10/fuzzrake/public/health";
+    private static final String URL = "https://getfursu.it/health";
     private static final Object TAG = new Object();
     private static final int CHECK_INTERVAL_IN_MILLIS = 5 * 60 * 1000; // 5 minutes
 

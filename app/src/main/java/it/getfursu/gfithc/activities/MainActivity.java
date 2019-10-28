@@ -46,6 +46,6 @@ public class MainActivity extends AppCompatActivity implements HealthCheckStatus
     }
 
     private void refresh() {
-        txvHcResult.setText(HealthCheckStatus.getInstance().getMessage());
+        txvHcResult.setText(HealthCheckStatus.getInstance().getMessage().replace("\",\"", "\",\n\""));
     }
 }
