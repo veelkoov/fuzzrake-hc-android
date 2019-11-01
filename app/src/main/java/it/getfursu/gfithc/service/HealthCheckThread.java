@@ -39,7 +39,19 @@ final class HealthCheckThread extends Thread implements Response.Listener<JSONOb
 
     @Override
     public void onErrorResponse(VolleyError error) {
-        status.update(new JSONObject(), error.getMessage());
+        String message;
+
+        if (null != error.networkResponse) {
+            message = new String(error.networkResponse.data);
+        } else if (null != error.getCause()) {
+            message = error.getCause().getMessage();
+        } else if (null != error.getMessage()) {
+            message = error.getMessage();
+        } else {
+            message = "Unknown error";
+        }
+
+        status.update(new JSONObject(), message);
     }
 
     @Override

@@ -22,6 +22,7 @@ public class HealthCheckService extends Service implements HealthCheckStatus.Lis
     private HealthCheckThread thread;
     private NotificationManagerCompat notificationManager;
     private HealthCheckStatus status = HealthCheckStatus.getInstance();
+    private boolean lastIsOkStatus = true;
 
     @Override
     public void onCreate() {
@@ -78,6 +79,10 @@ public class HealthCheckService extends Service implements HealthCheckStatus.Lis
 
     @Override
     public void update() {
-        notificationManager.notify(NOTIFICATION_ID, createNotification());
+        if (status.isOK() != lastIsOkStatus) {
+            notificationManager.notify(NOTIFICATION_ID, createNotification());
+        }
+
+        lastIsOkStatus = status.isOK();
     }
 }
