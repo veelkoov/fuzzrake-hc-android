@@ -37,7 +37,9 @@ public class MainActivity extends AppCompatActivity implements HealthCheckStatus
     }
 
     public void onStopServiceClick(View view) {
-        // TODO
+        Intent intent = new Intent(this, HealthCheckService.class);
+        intent.setAction(HealthCheckService.ACTION_STOP);
+        startForegroundService(intent);
     }
 
     @Override

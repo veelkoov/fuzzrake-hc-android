@@ -69,6 +69,7 @@ final class HealthCheckThread extends Thread implements Response.Listener<JSONOb
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL,
                 null, this, this);
         request.setTag(TAG);
+        request.setShouldCache(false);
 
         requestQueue.cancelAll(TAG);
         requestQueue.add(request);

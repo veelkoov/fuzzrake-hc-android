@@ -16,6 +16,8 @@ import it.getfursu.gfithc.R;
 import it.getfursu.gfithc.activities.MainActivity;
 
 public class HealthCheckService extends Service implements HealthCheckStatus.Listener {
+    public static final String ACTION_STOP = "stop";
+
     private static final String NOTIFICATION_CHANNEL_ID = "LE_ID";
     private final static int NOTIFICATION_ID = 10;
 
@@ -37,7 +39,14 @@ public class HealthCheckService extends Service implements HealthCheckStatus.Lis
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        thread.startOnce();
+        if (ACTION_STOP.equals(intent.getAction())) {
+            thread.interrupt();
+
+            stopForeground(true);
+            stopSelf();
+        } else {
+            thread.startOnce();
+        }
 
         return START_STICKY;
     }
