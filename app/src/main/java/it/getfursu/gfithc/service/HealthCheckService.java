@@ -24,7 +24,6 @@ public class HealthCheckService extends Service implements HealthCheckStatus.Lis
     private HealthCheckThread thread;
     private NotificationManagerCompat notificationManager;
     private HealthCheckStatus status = HealthCheckStatus.getInstance();
-    private boolean lastIsOkStatus = true;
 
     @Override
     public void onCreate() {
@@ -79,8 +78,10 @@ public class HealthCheckService extends Service implements HealthCheckStatus.Lis
                 NOTIFICATION_CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setPriority(status.isOK() ? NotificationCompat.PRIORITY_MIN : NotificationCompat.PRIORITY_MAX)
-                .setContentText(status.isOK() ? "OK" : "ERROR")
+                .setContentText(status.getStatus().getDescription())
                 .setOnlyAlertOnce(status.isOK())
+                .setColorized(true)
+                .setColor(status.getStatus().getColorRepresentation())
                 .setContentIntent(contentIntent);
 
         return builder.build();
@@ -88,10 +89,6 @@ public class HealthCheckService extends Service implements HealthCheckStatus.Lis
 
     @Override
     public void update() {
-        if (status.isOK() != lastIsOkStatus) {
-            notificationManager.notify(NOTIFICATION_ID, createNotification());
-        }
-
-        lastIsOkStatus = status.isOK();
+        notificationManager.notify(NOTIFICATION_ID, createNotification());
     }
 }
