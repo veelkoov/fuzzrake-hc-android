@@ -49,13 +49,13 @@ public class HealthCheckStatus {
         }
 
         public static Status fromString(String input) {
-            if (OK.description.equals(input)) {
+            if (OK.description.equalsIgnoreCase(input)) {
                 return OK;
             }
-            if (WARNING.description.equals(input)) {
+            if (WARNING.description.equalsIgnoreCase(input)) {
                 return WARNING;
             }
-            if (ERROR.description.equals(input)) {
+            if (ERROR.description.equalsIgnoreCase(input)) {
                 return ERROR;
             }
             return UNKNOWN;
