@@ -23,7 +23,7 @@ public class HealthCheckService extends Service implements HealthCheckStatus.Lis
 
     private HealthCheckThread thread;
     private NotificationManagerCompat notificationManager;
-    private HealthCheckStatus status = HealthCheckStatus.getInstance();
+    private final HealthCheckStatus status = HealthCheckStatus.getInstance();
 
     @Override
     public void onCreate() {
@@ -77,6 +77,7 @@ public class HealthCheckService extends Service implements HealthCheckStatus.Lis
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this,
                 NOTIFICATION_CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                 .setPriority(status.isOK() ? NotificationCompat.PRIORITY_MIN : NotificationCompat.PRIORITY_MAX)
                 .setContentText(status.getStatus().getDescription())
                 .setOnlyAlertOnce(status.isOK())
