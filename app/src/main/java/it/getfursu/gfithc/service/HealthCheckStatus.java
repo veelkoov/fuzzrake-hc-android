@@ -68,9 +68,9 @@ public class HealthCheckStatus {
 
     private static HealthCheckStatus INSTANCE;
 
-    private final List<String> SUBITEMS = Arrays.asList("status", "cstStatus", "load", "memory", "disk");
+    private final List<String> SUBITEMS = Arrays.asList("status", "csUpdatesStatus", "load", "memory", "disk");
 
-    private List<Listener> listeners = new ArrayList<>();
+    private final List<Listener> listeners = new ArrayList<>();
 
     private String message = "Not checked yet";
     private JSONObject jsonResponse = new JSONObject();
